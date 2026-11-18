@@ -559,6 +559,27 @@ function checkIndustryTrendsNote() {
 }
 
 // ──────────────────────────────────────────────
+// 18. CSS 內的資產路徑不得是網站根目錄的絕對路徑（2026-11-18 上線部署時
+//     發現：GitHub Pages 測試網址有 path prefix，style.css 裡原本寫死的
+//     "/assets/fonts/..." 不會自動套用 PATH_PREFIX（CSS 不經過 eleventy
+//     的 url filter），造成自架字體 404。改成 "../fonts/..." 相對路徑後
+//     不管有沒有 prefix、換網域都不受影響，這裡加一條回歸測試，避免
+//     以後又手滑寫回絕對路徑。）
+// ──────────────────────────────────────────────
+function checkCssAbsoluteAssetPaths() {
+  const errors = [];
+  const cssFiles = walk(path.join(siteDir, 'assets', 'css'), (f) => f.endsWith('.css'));
+  cssFiles.forEach((f) => {
+    const text = fs.readFileSync(f, 'utf8');
+    const matches = [...text.matchAll(/url\(\s*['"]?(\/[^'")]+)['"]?\s*\)/g)];
+    matches.forEach((m) => {
+      errors.push(`${path.relative(siteDir, f)}：url() 用了網站根目錄絕對路徑 "${m[1]}"，在有 path prefix（如 GitHub Pages 測試網址）時會 404，請改成相對路徑`);
+    });
+  });
+  report('18. CSS 資產路徑不得是絕對路徑（避免 path prefix 下 404）', errors.length === 0, errors);
+}
+
+// ──────────────────────────────────────────────
 // 執行全部檢查並輸出報告
 // ──────────────────────────────────────────────
 checkSecrets();
@@ -578,6 +599,7 @@ checkAbsoluteTaiwanWording();
 checkNickelKeyword();
 checkCycleTitle();
 checkIndustryTrendsNote();
+checkCssAbsoluteAssetPaths();
 
 console.log('='.repeat(60));
 results.forEach((r) => {
