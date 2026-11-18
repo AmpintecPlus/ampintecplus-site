@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時間只允許一個部署在跑，避免兩次 push 互相搶發布
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # 上線測試網址 https://ampintecplus.github.io/ampintecplus-site/ 需要 path prefix。
+      # 用 repo 變數 PATH_PREFIX 控制，之後切到正式網域時只要把這個變數改成 "/"，
+      # 不用改任何程式碼。沒設定變數時預設 "/"（等同沒有 prefix）。
+      PATH_PREFIX: ${{ vars.PATH_PREFIX || '/' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site (with path prefix)
+        run: npx eleventy --pathprefix="${PATH_PREFIX}"
+
+      - name: Minify CSS/JS
+        run: node scripts/minify-assets.js
+
+      - name: Run content/quality checks
+        run: node scripts/check.js
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
