@@ -358,21 +358,29 @@ function checkInternalLinks() {
 }
 
 // ──────────────────────────────────────────────
-// 8. noindex 仍存在
+// 8. 開放索引（黃總 2026-11-18 開放索引指令）：indexing 必須是 true，
+//    除了 404 頁（本來就該讓搜尋引擎跳過）以外的所有頁面都不得有 noindex。
 // ──────────────────────────────────────────────
 function checkNoindex() {
   const siteJson = JSON.parse(fs.readFileSync(path.join(srcDir, '_data/site.json'), 'utf8'));
   const errors = [];
-  if (siteJson.indexing !== false) {
-    errors.push(`site.json 的 indexing 目前是 ${siteJson.indexing}，預期 false（尚未正式上線前應保持 noindex）`);
+  if (siteJson.indexing !== true) {
+    errors.push(`site.json 的 indexing 目前是 ${siteJson.indexing}，預期 true（已開放索引）`);
   }
+  const NOINDEX_RE = /<meta\s+name="robots"\s+content="noindex,\s*nofollow">/;
+  const notFoundFile = path.join(siteDir, '404.html');
   htmlFiles.forEach((f) => {
     const html = fs.readFileSync(f, 'utf8');
-    if (!/<meta\s+name="robots"\s+content="noindex,\s*nofollow">/.test(html)) {
-      errors.push(`${path.relative(siteDir, f)}：找不到 noindex meta tag`);
+    const hasNoindex = NOINDEX_RE.test(html);
+    if (f === notFoundFile) {
+      if (!hasNoindex) {
+        errors.push(`${path.relative(siteDir, f)}：404 頁應保留 noindex meta tag，但找不到`);
+      }
+    } else if (hasNoindex) {
+      errors.push(`${path.relative(siteDir, f)}：開放索引後不應再有 noindex meta tag`);
     }
   });
-  report('8. noindex 仍存在', errors.length === 0, errors);
+  report('8. 開放索引（indexing:true，除 404 外無 noindex）', errors.length === 0, errors);
 }
 
 // ──────────────────────────────────────────────
@@ -580,6 +588,49 @@ function checkCssAbsoluteAssetPaths() {
 }
 
 // ──────────────────────────────────────────────
+// 19. 不得出現統一編號（黃總 2026-11-18 開放索引指令：全站拿掉統一編號）
+// ──────────────────────────────────────────────
+function checkNoTaxId() {
+  const errors = [];
+  const llmsFile = path.join(siteDir, 'llms.txt');
+  const scanFiles = [...htmlFiles, ...(fs.existsSync(llmsFile) ? [llmsFile] : [])];
+  const bannedPatterns = [
+    { name: '61958140（公司統一編號）', re: /61958140/ },
+    { name: 'taxId／taxID', re: /taxId|taxID/i },
+  ];
+  scanFiles.forEach((f) => {
+    const text = fs.readFileSync(f, 'utf8');
+    bannedPatterns.forEach((p) => {
+      if (p.re.test(text)) {
+        errors.push(`${path.relative(siteDir, f)}：出現「${p.name}」，依黃總決定全站應移除統一編號`);
+      }
+    });
+  });
+  report('19. 不得出現統一編號', errors.length === 0, errors);
+}
+
+// ──────────────────────────────────────────────
+// 20. 頁面不得出現方括號佔位字（黃總 2026-11-18 開放索引指令）：例如
+//     "[GA4 ID]"、"[生效日期..."、"[Effective date..." 這類還沒填實際
+//     內容的佔位字。site.json 的 gaId 本身維持 "[GA4 ID]" 佔位（透過
+//     data-ga-id 屬性讓 consent.js 判斷還不載入 GA，是刻意保留，不算
+//     違規），所以掃描前先把這個屬性值拿掉再比對。
+// ──────────────────────────────────────────────
+function checkNoBracketPlaceholders() {
+  const errors = [];
+  htmlFiles.forEach((f) => {
+    const text = fs.readFileSync(f, 'utf8').replace(/data-ga-id="[^"]*"/g, '');
+    // 排除含有雙引號的中括號內容（JSON-LD 陣列如 ["a","b"] 一定會有引號，
+    // 真正的佔位字如 "[GA4 ID]" 不會有引號），避免誤判結構化資料。
+    const matches = [...text.matchAll(/\[[^\[\]<>"]{2,80}\]/g)];
+    matches.forEach((m) => {
+      errors.push(`${path.relative(siteDir, f)}：出現方括號佔位字「${m[0]}」`);
+    });
+  });
+  report('20. 頁面不得出現方括號佔位字（[GA4 ID] 等）', errors.length === 0, errors);
+}
+
+// ──────────────────────────────────────────────
 // 執行全部檢查並輸出報告
 // ──────────────────────────────────────────────
 checkSecrets();
@@ -600,6 +651,8 @@ checkNickelKeyword();
 checkCycleTitle();
 checkIndustryTrendsNote();
 checkCssAbsoluteAssetPaths();
+checkNoTaxId();
+checkNoBracketPlaceholders();
 
 console.log('='.repeat(60));
 results.forEach((r) => {

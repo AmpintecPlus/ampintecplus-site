@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.ampintecplus.com",
-  "indexing": false,
+  "indexing": true,
   "gaId": "[GA4 ID]",
   "consentKey": "ampintec_consent",
   "consentMaxAgeDays": 365,

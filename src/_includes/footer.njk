@@ -4,9 +4,9 @@
     <p class="footer-slogan">{{ i18n[lang].footer.slogan }}</p>
 
     <p class="footer-legal">{%- if lang == 'zh' -%}
-© {{ company.copyrightYear }} {{ company.nameZh }} {{ company.nameEn }}｜統一編號 {{ company.taxId }}｜{{ company.addressZh }}｜<a href="mailto:{{ company.email }}">{{ company.email }}</a>
+© {{ company.copyrightYear }} {{ company.nameZh }} {{ company.nameEn }}｜{{ company.addressZh }}｜<a href="mailto:{{ company.email }}">{{ company.email }}</a>
       {%- else -%}
-© {{ company.copyrightYear }} {{ company.nameZh }} {{ company.nameEn }} | Tax ID {{ company.taxId }} | {{ company.addressEn }} | <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+© {{ company.copyrightYear }} {{ company.nameZh }} {{ company.nameEn }} | {{ company.addressEn }} | <a href="mailto:{{ company.email }}">{{ company.email }}</a>
       {%- endif -%}</p>
 
     <p class="footer-nav"><a href="{{ ('/' ~ lang ~ '/privacy/') | url }}">{{ footerNav[lang].privacy }}</a>{{ sep }}<a href="{{ ('/' ~ lang ~ '/terms/') | url }}">{{ footerNav[lang].terms }}</a>{{ sep }}<a href="{{ ('/' ~ lang ~ '/cookies/') | url }}">{{ footerNav[lang].cookies }}</a>{{ sep }}<button type="button" class="footer-link-btn" id="js-cookie-settings">{{ footerNav[lang].cookieSettings }}</button></p>
