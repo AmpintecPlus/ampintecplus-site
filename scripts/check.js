@@ -631,6 +631,27 @@ function checkNoBracketPlaceholders() {
 }
 
 // ──────────────────────────────────────────────
+// 21. GA4 設定正確性（黃總 2026-11-18 GA4 指令）：gaId 必須是正式的
+//     G- 開頭 ID（"[GA4 ID]" 這種佔位字已由第 20 項擋掉），且頁面 HTML
+//     不可直接寫死載入 gtag 的 <script>，必須全部由 consent.js 依使用者
+//     是否同意分析 Cookie 才動態載入。
+// ──────────────────────────────────────────────
+function checkGA4Config() {
+  const errors = [];
+  const siteJson = JSON.parse(fs.readFileSync(path.join(srcDir, '_data/site.json'), 'utf8'));
+  if (!/^G-[A-Z0-9]+$/.test(siteJson.gaId)) {
+    errors.push(`site.json 的 gaId「${siteJson.gaId}」不是 G- 開頭的正式 GA4 ID 格式`);
+  }
+  htmlFiles.forEach((f) => {
+    const text = fs.readFileSync(f, 'utf8');
+    if (/<script[^>]*googletagmanager\.com\/gtag\/js/i.test(text)) {
+      errors.push(`${path.relative(siteDir, f)}：頁面 HTML 直接寫死 gtag <script>，必須改由 consent.js 依同意後才動態載入`);
+    }
+  });
+  report('21. GA4 設定正確性（gaId 格式、禁止寫死 gtag script）', errors.length === 0, errors);
+}
+
+// ──────────────────────────────────────────────
 // 執行全部檢查並輸出報告
 // ──────────────────────────────────────────────
 checkSecrets();
@@ -653,6 +674,7 @@ checkIndustryTrendsNote();
 checkCssAbsoluteAssetPaths();
 checkNoTaxId();
 checkNoBracketPlaceholders();
+checkGA4Config();
 
 console.log('='.repeat(60));
 results.forEach((r) => {

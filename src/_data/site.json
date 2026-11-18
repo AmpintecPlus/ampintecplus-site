@@ -1,7 +1,7 @@
 {
   "siteUrl": "https://www.ampintecplus.com",
   "indexing": true,
-  "gaId": "[GA4 ID]",
+  "gaId": "G-YYSRJ112M3",
   "consentKey": "ampintec_consent",
   "consentMaxAgeDays": 365,
   "formEndpoint": "https://script.google.com/macros/s/AKfycbx4UJfNMm4Ozca_46U7zr4VO4hJ6HAFedDsrwak4XoYKUxG_SXzLn5nybVuizx1of0a/exec"

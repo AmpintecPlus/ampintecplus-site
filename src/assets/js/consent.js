@@ -97,7 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(script);
 
     gtag('js', new Date());
-    gtag('config', GA_ID);
+    // 不加 Google Signals／廣告個人化；IP 處理採 GA4 預設方式（GA4 本身
+    // 不會記錄或儲存完整 IP，沒有 Universal Analytics 時代的 anonymize_ip 參數）。
+    gtag('config', GA_ID, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
   }
 
   function applyConsent(analytics) {
