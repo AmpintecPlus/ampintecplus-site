@@ -1,0 +1,54 @@
+---
+layout: base.njk
+title: Metal 3D Printing Materials | Aluminum, Titanium, Stainless Steel
+description: AMPINTEC PLUS metal 3D printing supports aluminum (alternative to AL6061 / AL7075), titanium, stainless steel, nickel-based alloy (Inconel), copper alloys, and custom alloys, with a mechanical property comparison table against conventional metals available on request.
+---
+{% set i = i18n.en %}
+
+<section class="section section-dark" id="materials">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">{{ i.nav.materials }}</span>
+      <h1 class="section-title">{{ i.materials.title }}</h1>
+      <p class="section-subtitle">{{ i.materials.answer_intro }}</p>
+    </div>
+
+    <div class="materials-grid">
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 6.5 V17.5 L12 22 L4 17.5 V6.5 Z"/><path d="M12 2 V22 M4 6.5 L20 17.5 M20 6.5 L4 17.5"/></svg></div>
+        <span class="material-name">{{ i.materials.m1 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m1_usage }}</p>
+      </div>
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L19 6 V12 C19 17 15.5 20 12 21 C8.5 20 5 17 5 12 V6 Z"/></svg></div>
+        <span class="material-name">{{ i.materials.m2 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m2_usage }}</p>
+      </div>
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 C12 3 6 11 6 15.5 A6 6 0 0 0 18 15.5 C18 11 12 3 12 3 Z"/><path d="M5 19 L19 5"/></svg></div>
+        <span class="material-name">{{ i.materials.m3 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m3_usage }}</p>
+      </div>
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 V15"/><circle cx="12" cy="18" r="3"/><path d="M9.5 7h2M9.5 10h2M9.5 13h2"/></svg></div>
+        <span class="material-name">{{ i.materials.m4 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m4_usage }}</p>
+      </div>
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L5 13 H11 L10 22 L19 10 H13 Z"/></svg></div>
+        <span class="material-name">{{ i.materials.m5 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m5_usage }}</p>
+      </div>
+      <div class="material-card">
+        <div class="material-icon material-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h20M4 12h20M4 18h20"/><circle cx="14" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+        <span class="material-name">{{ i.materials.m6 | safe }}</span>
+        <p class="material-usage">{{ i.materials.m6_usage }}</p>
+      </div>
+    </div>
+
+    <div class="materials-lead">
+      <span>{{ i.materials.lead_magnet }}</span>
+      <a href="{{ ('/en/contact/') | url }}" class="btn btn-primary">{{ i.nav.cta }}</a>
+    </div>
+  </div>
+</section>

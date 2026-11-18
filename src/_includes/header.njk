@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="container">
+    <a href="{{ ('/' ~ lang ~ '/') | url }}" class="logo-container">
+      <img src="{{ '/assets/img/ampintec-logo-132.webp' | url }}" srcset="{{ '/assets/img/ampintec-logo-132.webp' | url }} 132w, {{ '/assets/img/ampintec-logo.webp' | url }} 1920w" sizes="66px" alt="AMPINTEC PLUS" class="logo-img" width="66" height="40">
+    </a>
+
+    <button class="nav-toggle" id="js-nav-toggle" aria-label="{{ i18n[lang].nav.menu_open_label }}" aria-expanded="false" aria-controls="js-nav-menu" data-label-open="{{ i18n[lang].nav.menu_open_label }}" data-label-close="{{ i18n[lang].nav.menu_close_label }}">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-menu" id="js-nav-menu">
+      {%- for item in nav[lang] %}
+      <li><a href="{{ ('/' ~ lang ~ '/' ~ item.path) | url }}" class="nav-link">{{ item.label }}</a></li>
+      {%- endfor %}
+      <li class="nav-menu-cta"><a href="{{ ('/' ~ lang ~ '/contact/') | url }}" class="btn btn-primary">{{ i18n[lang].nav.cta }}</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="{{ altUrl | url }}" class="lang-switch" id="js-lang-switch" lang="{{ 'en' if lang == 'zh' else 'zh-Hant' }}" hreflang="{{ 'en' if lang == 'zh' else 'zh-TW' }}">{{ 'EN' if lang == 'zh' else '中文' }}</a>
+      <a href="{{ ('/' ~ lang ~ '/contact/') | url }}" class="btn btn-primary">{{ i18n[lang].nav.cta }}</a>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="js-nav-backdrop"></div>

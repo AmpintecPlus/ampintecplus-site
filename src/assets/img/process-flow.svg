@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" width="1200" height="200" role="img" aria-labelledby="pf-title-zh">
+  <title id="pf-title-zh">金屬列印、精密加工、後處理到檢測出貨的一站式流程示意圖</title>
+  <style>
+    .pf-flow-line {
+      stroke-dasharray: 10 10;
+      animation: pf-flow 3s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pf-flow-line {
+        animation: none;
+      }
+    }
+    @keyframes pf-flow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -40; }
+    }
+  </style>
+  <defs>
+    <marker id="pf-arrow-zh" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#C9A227"/>
+    </marker>
+  </defs>
+
+  <path class="pf-flow-line" d="M90,86 Q300,42 450,86 Q600,130 750,86 Q900,42 1050,86 Q1090,86 1112,72"
+    fill="none" stroke="#C9A227" stroke-width="1.5" stroke-linecap="round" marker-end="url(#pf-arrow-zh)"/>
+
+  <!-- 01 金屬列印：堆疊層狀列印 -->
+  <g transform="translate(150,86)" stroke="#C9A227" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-20,-18 L0,-28 L20,-18 L20,-4 L0,6 L-20,-4 Z"/>
+    <path d="M-20,-18 L0,-8 L20,-18"/>
+    <path d="M0,-8 L0,6"/>
+    <path d="M-2,-40 L6,-32 L-2,-32 L6,-24" stroke-linejoin="round"/>
+    <text x="24" y="-44" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#C9A227" fill-opacity="0.45" stroke="none">01</text>
+    <text x="0" y="46" text-anchor="middle" font-family="'Noto Sans TC', Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" stroke="none">金屬列印</text>
+  </g>
+
+  <!-- 02 精密加工：CNC 精度星標 -->
+  <g transform="translate(450,86)" stroke="#C9A227" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="0" cy="-18" r="6"/>
+    <path d="M0,-38 L0,-29 M0,-7 L0,2 M-20,-18 L-11,-18 M11,-18 L20,-18 M-14,-32 L-8,-26 M8,-10 L14,-4 M-14,-4 L-8,-10 M8,-26 L14,-32"/>
+    <text x="24" y="-44" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#C9A227" fill-opacity="0.45" stroke="none">02</text>
+    <text x="0" y="46" text-anchor="middle" font-family="'Noto Sans TC', Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" stroke="none">精密加工</text>
+  </g>
+
+  <!-- 03 後處理：拋磨拉絲 -->
+  <g transform="translate(750,86)" stroke="#C9A227" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-15,-3 L15,-33"/>
+    <path d="M-15,-3 L-20,-10 M-15,-3 L-8,1"/>
+    <circle cx="9" cy="-27" r="3.5" fill="#C9A227" stroke="none"/>
+    <circle cx="16" cy="-19" r="2" fill="#C9A227" stroke="none"/>
+    <text x="24" y="-44" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#C9A227" fill-opacity="0.45" stroke="none">03</text>
+    <text x="0" y="46" text-anchor="middle" font-family="'Noto Sans TC', Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" stroke="none">後處理</text>
+  </g>
+
+  <!-- 04 檢測出貨：量測＋出貨勾選 -->
+  <g transform="translate(1050,86)" stroke="#C9A227" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-17,-2 L-17,-20 L0,-28 L17,-20 L17,-2 L0,6 Z"/>
+    <path d="M-17,-20 L0,-12 L17,-20 M0,-12 L0,6"/>
+    <path d="M-7,-34 L-2,-28 L10,-40" stroke-width="1.5"/>
+    <text x="24" y="-44" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#C9A227" fill-opacity="0.45" stroke="none">04</text>
+    <text x="0" y="46" text-anchor="middle" font-family="'Noto Sans TC', Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" stroke="none">檢測出貨</text>
+  </g>
+</svg>

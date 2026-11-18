@@ -1,0 +1,74 @@
+---
+layout: base.njk
+title: Industries | Aerospace, Semiconductor, Industrial Equipment
+description: AMPINTEC PLUS metal 3D printing serves aerospace, semiconductor, mold & tooling, industrial equipment, and non-invasive medical device industries, offering prototyping, small-batch production, and part remanufacturing.
+---
+{% set i = i18n.en %}
+
+<section class="section section-dark" id="industries-hero">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">{{ i.industriesPage.title }}</span>
+      <h1 class="section-title">{{ i.industriesPage.h1 }}</h1>
+      <p class="section-subtitle">{{ i.industriesPage.answer_intro }}</p>
+    </div>
+
+    <div class="apps-grid">
+      <div class="app-card">
+        <div class="app-icon app-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L13 8.5 L21 12 L13 13.8 L12 20 L11 13.8 L3 12 L11 8.5 Z"/></svg></div>
+        <h2 class="app-card-title">{{ i.industriesPage.aerospace_title }}</h2>
+        <p>{{ i.industriesPage.aerospace_desc }}</p>
+      </div>
+      <div class="app-card">
+        <div class="app-icon app-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><defs><clipPath id="wafer-clip"><path d="M6,18.71 A9 9 0 1 1 18,18.71 Z"/></clipPath></defs><path d="M6,18.71 A9 9 0 1 1 18,18.71 Z" stroke-width="1.5"/><g clip-path="url(#wafer-clip)" stroke-width="1.5" opacity="0.6"><path d="M3 9h18M3 12h18M3 15h18"/><path d="M9 3v18M12 3v18M15 3v18"/></g></svg></div>
+        <h2 class="app-card-title">{{ i.industriesPage.semiconductor_title }}</h2>
+        <p>{{ i.industriesPage.semiconductor_desc }}</p>
+      </div>
+      <div class="app-card">
+        <div class="app-icon app-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 1-5.1 5.1L4 17l3 3 5.6-5.6a4 4 0 0 0 5.1-5.1L15 12l-3-3 2.7-2.7Z"/></svg></div>
+        <h2 class="app-card-title">{{ i.industriesPage.mold_title }}</h2>
+        <p>{{ i.industriesPage.mold_desc }}</p>
+      </div>
+      <div class="app-card">
+        <div class="app-icon app-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
+        <h2 class="app-card-title">{{ i.industriesPage.industrial_title }}</h2>
+        <p>{{ i.industriesPage.industrial_desc }}</p>
+      </div>
+      <div class="app-card">
+        <div class="app-icon app-icon-svg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg></div>
+        <h2 class="app-card-title">{{ i.industriesPage.medical_title }}</h2>
+        <p>{{ i.industriesPage.medical_desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-light" id="industry-trends">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ i.industriesPage.trends_title }}</h2>
+      <p class="section-subtitle">* {{ i.industriesPage.trends_disclaimer }}</p>
+    </div>
+    <div class="tech-categories">
+      {%- for item in industryTrends.items %}
+      <div class="category-card">
+        <h3>{{ i.cases[item.key ~ '_title'] }}</h3>
+        <p>{{ i.cases[item.key ~ '_desc'] }}</p>
+        <p><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="case-card-ref"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px;"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L12.5 19.5"/></svg>{{ i.cases.ref_label }}</a></p>
+        <span class="category-card-note">{{ i.cases.public_data_note }}</span>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-dark" id="industries-cta">
+  <div class="container home-cta-wrap">
+    <h2 class="section-title">{{ i.home.cta_title }}</h2>
+    <p>{{ i.contact.cta_desc }}</p>
+    <div class="hero-btns" style="justify-content:center; margin-top: 24px;">
+      <a href="{{ ('/en/contact/') | url }}" class="btn btn-primary">{{ i.nav.cta }}</a>
+    </div>
+  </div>
+</section>
